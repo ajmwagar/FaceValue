@@ -1,9 +1,8 @@
-## SqaushR Core V 1.0 ##
+""""SqaushR Core V 1.0"""
 import os
-filename, file_extension = os.path.splitext('/path/to/somefile.ext')
-filename
-'/Users/avery/Documents/GitHub/SqaushR/index.html'
-file_extension
-'.ext'
+import sklearn 
+from sklearn import datasets
+print("Hello SqaushR")
+iris = datasets.load_iris()
 
-print(filename + file_extension) 
+print(iris.data)
