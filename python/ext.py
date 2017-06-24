@@ -1,4 +1,4 @@
-## SqaushR Core V 1.0 ##
+""" SqaushR Core V 1.0 """
 from os.path import splitext
 def splitext_(path):
     if len(path.split('.')) > 2:
