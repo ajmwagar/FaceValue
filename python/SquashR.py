@@ -1,6 +1,7 @@
 """ FaceValue Core V 1.0 """
-import numpy as np
 import sys
+import sklearn
+import numpy as np
 import cv2
 
 # cascPath = sys.argv[1]
@@ -8,6 +9,9 @@ import cv2
 faceCascade = cv2.CascadeClassifier('../data/haarcascades/haarcascade_frontalface_default.xml')
 eye_cascade = cv2.CascadeClassifier('../data/haarcascades/haarcascade_eye.xml')
 video_capture = cv2.VideoCapture(0)
+# Toggles Rectangle and Debug logs
+debug = False
+
 
 while True:
     # Capture frame-by-frame
@@ -21,13 +25,12 @@ while True:
         roi_gray = gray[y:y+h, x:x+w]
         roi_color = frame[y:y+h, x:x+w]
         eyes = eye_cascade.detectMultiScale(roi_gray)
+        if debug:
+            print("Face found")
         for (ex,ey,ew,eh) in eyes:
             cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
-
-    # # Draw a rectangle around the faces
-    # for (x, y, w, h) in faces:
-        # cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-
+            if debug:
+                print("Eye found")
     # Display the resulting frame
     cv2.imshow('Video', frame)
 
