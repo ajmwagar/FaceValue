@@ -9,7 +9,8 @@ import emoji
 faceCascade = cv2.CascadeClassifier('../data/haarcascades/haarcascade_frontalface_default.xml')
 eye_cascade = cv2.CascadeClassifier('../data/haarcascades/haarcascade_eye.xml')
 video_capture = cv2.VideoCapture(0)
-
+img = cv2.imread('Happy_Emoji_Icon.png',0)
+cv2.cv.NamedWindow("window_a", cv2.CV_WINDOW_AUTOSIZE)
 
 while True:
     # Capture frame-by-frame
@@ -17,8 +18,9 @@ while True:
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = faceCascade.detectMultiScale(gray, 1.3, 5) 
     for (x,y,w,h) in faces:
-        triangle = np.array([ [x,y], [x+20,y-40], [x+40,y-40], [x+40,y-80], [x-40,y-80], [x-40,y-40], [x-20,y-40] ])
-        cv2.fillPoly(frame, [triangle],(0,0,0), lineType=8, shift=0)
+        cv2.imshow('window_a',img)
+        #triangle = np.array([ [x,y], [x+20,y-40], [x+40,y-40], [x+40,y-80], [x-40,y-80], [x-40,y-40], [x-20,y-40] ])
+        #cv2.fillPoly(frame, [triangle],(0,0,0), lineType=8, shift=0)
         #cv2.putText(frame, u'\u1F609', (x,y), cv2.FONT_HERSHEY_PLAIN, 10, (0,0,0))
         #Python: cv2.circle(frame, (x + 100,y), 3, (0,0,0))
         #cv2.rectangle(frame,(x,y),(x+w,y+h),(0,0,0),2)
