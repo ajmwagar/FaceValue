@@ -41,7 +41,9 @@ def getEmotion(path):
 # faceCascade = cv2.CascadeClassifier(cascPath)
 faceCascade = cv2.CascadeClassifier('../data/haarcascades/haarcascade_frontalface_default.xml')
 eye_cascade = cv2.CascadeClassifier('../data/haarcascades/haarcascade_eye.xml')
-video_capture = cv2.VideoCapture(1)
+a = 0
+a = int (input("which webcam:"))
+video_capture = cv2.videocapture(a)
 # Toggles Rectangle and Debug logs
 # debug = False
 debug = True
