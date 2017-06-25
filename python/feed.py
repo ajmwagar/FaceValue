@@ -40,7 +40,7 @@ def runFeed():
     def UI():
         triangle = np.array([ [x,y], [x+20,y-40], [x+40,y-40], [x+40,y-80], [x-40,y-80], [x-40,y-40], [x-20,y-40] ])
         cv2.fillPoly(frame, [triangle],(0,0,0), lineType=8, shift=0)
-    #     cv2.addText(frame, emojicode, (x,y),(x+w,y+h),(0,0,0),2)
+        cv2.addText(frame, emojicode, (x,y),(x+w,y+h),(0,0,0),2)
     while True:
         # Capture frame-by-frame
         ret, frame = video_capture.read()
