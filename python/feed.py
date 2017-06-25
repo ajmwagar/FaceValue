@@ -41,7 +41,7 @@ def getEmotion(path):
 # faceCascade = cv2.CascadeClassifier(cascPath)
 faceCascade = cv2.CascadeClassifier('../data/haarcascades/haarcascade_frontalface_default.xml')
 eye_cascade = cv2.CascadeClassifier('../data/haarcascades/haarcascade_eye.xml')
-video_capture = cv2.VideoCapture(0)
+video_capture = cv2.VideoCapture(1)
 # Toggles Rectangle and Debug logs
 # debug = False
 debug = True
@@ -77,13 +77,15 @@ elif emotion == "Angry":
 elif emotion == "Suprised":
     #emojicode == "u\u1F602"  
     emojicode = u'\U0001f603' 
-    # emojicode == "😲"
+    # emojicode == "😲
 
 def runFeed():         
     def UI():
         triangle = np.array([ [x,y], [x+20,y-40], [x+40,y-40], [x+40,y-80], [x-40,y-80], [x-40,y-40], [x-20,y-40] ])
         cv2.fillPoly(frame, [triangle],(0,0,0), lineType=8, shift=0)
-        # cv2.addText(frame, emojicode, (x,y),(x+w,y+h),(0,0,0),2)
+        font = cv2.FONT_HERSHEY_COMPLEX
+        # cv2.putText(frame, emojicode.encode('unicode-escape'),(x,y), font, 4,(255,255,255), lineType=8)
+        cv2.putText(frame, emojicode.encode('unicode-escape'), (x,y), font, 4)
     while True:
         # Capture frame-by-frame
         ret, frame = video_capture.read()
