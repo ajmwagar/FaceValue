@@ -81,11 +81,11 @@ elif emotion == "Suprised":
 
 def runFeed():         
     def UI():
-        triangle = np.array([ [x,y], [x+20,y-40], [x+40,y-40], [x+40,y-80], [x-40,y-80], [x-40,y-40], [x-20,y-40] ])
-        cv2.fillPoly(frame, [triangle],(0,0,0), lineType=8, shift=0)
+        #triangle = np.array([ [x,y], [x+20,y-40], [x+40,y-40], [x+40,y-80], [x-40,y-80], [x-40,y-40], [x-20,y-40] ])
+        #cv2.fillPoly(frame, [triangle],(0,0,0), lineType=8, shift=0)
         font = cv2.FONT_HERSHEY_COMPLEX
         # cv2.putText(frame, emojicode.encode('unicode-escape'),(x,y), font, 4,(255,255,255), lineType=8)
-        cv2.putText(frame, emojicode.encode('unicode-escape'), (x,y), font, 4)
+        cv2.putText(frame, 'OpenCV Tuts!', (x, y), font, 6, (200, 255, 155), 13, cv2.LINE_AA)
     i = 0
     while True:
         # Capture frame-by-frame
