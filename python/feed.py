@@ -84,11 +84,17 @@ def runFeed():
         triangle = np.array([ [x,y], [x+20,y-40], [x+40,y-40], [x+40,y-80], [x-40,y-80], [x-40,y-40], [x-20,y-40] ])
         cv2.fillPoly(frame, [triangle],(0,0,0), lineType=8, shift=0)
         # cv2.addText(frame, emojicode, (x,y),(x+w,y+h),(0,0,0),2)
+    i = 0
     while True:
         # Capture frame-by-frame
         ret, frame = video_capture.read()
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        faces = faceCascade.detectMultiScale(gray, 1.3, 5) 
+        faces = faceCascade.detectMultiScale(gray, 1.3, 5)
+        i += 1
+        if i >= 10:
+            cv2.imwrite('opencv' + str(i) + '.jpg', frame)
+            i = 0
+            print("image captured!")
         for (x,y,w,h) in faces:
             UI()
             #cv2.putText(frame, u'\u1F609', (x,y), cv2.FONT_HERSHEY_PLAIN, 10, (0,0,0))
@@ -107,8 +113,13 @@ def runFeed():
                 if debug:
                     print("Eye found")
                     print(emojicode.encode('unicode-escape'))
+
+
         # Display the resulting frame
         cv2.imshow('Video', frame)
+
+
+
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
