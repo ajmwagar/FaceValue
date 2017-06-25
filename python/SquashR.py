@@ -11,12 +11,13 @@ faceCascade = cv2.CascadeClassifier('../data/haarcascades/haarcascade_frontalfac
 eye_cascade = cv2.CascadeClassifier('../data/haarcascades/haarcascade_eye.xml')
 video_capture = cv2.VideoCapture(0)
 # Toggles Rectangle and Debug logs
-debug = False
+# debug = False
+debug = True
 
 def UI():
     triangle = np.array([ [x,y], [x+20,y-40], [x+40,y-40], [x+40,y-80], [x-40,y-80], [x-40,y-40], [x-20,y-40] ])
     cv2.fillPoly(frame, [triangle],(0,0,0), lineType=8, shift=0)
-
+     
 while True:
     # Capture frame-by-frame
     ret, frame = video_capture.read()
