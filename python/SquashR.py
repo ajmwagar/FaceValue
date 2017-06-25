@@ -3,6 +3,7 @@ import sys
 import sklearn
 import numpy as np
 import cv2
+import emoji
 
 # cascPath = sys.argv[1]
 # faceCascade = cv2.CascadeClassifier(cascPath)
@@ -13,15 +14,18 @@ video_capture = cv2.VideoCapture(0)
 debug = False
 
 
+
 while True:
     # Capture frame-by-frame
     ret, frame = video_capture.read()
-
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
     faces = faceCascade.detectMultiScale(gray, 1.3, 5) 
     for (x,y,w,h) in faces:
-        cv2.rectangle(frame,(x,y),(x+w,y+h),(255,0,0),2)
+        triangle = np.array([ [x,y], [x+20,y-40], [x+40,y-40], [x+40,y-80], [x-40,y-80], [x-40,y-40], [x-20,y-40] ])
+        cv2.fillPoly(frame, [triangle],(0,0,0), lineType=8, shift=0)
+        #cv2.putText(frame, u'\u1F609', (x,y), cv2.FONT_HERSHEY_PLAIN, 10, (0,0,0))
+        #Python: cv2.circle(frame, (x + 100,y), 3, (0,0,0))
+        #cv2.rectangle(frame,(x,y),(x+w,y+h),(0,0,0),2)
         roi_gray = gray[y:y+h, x:x+w]
         roi_color = frame[y:y+h, x:x+w]
         eyes = eye_cascade.detectMultiScale(roi_gray)
