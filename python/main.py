@@ -2,16 +2,20 @@ from timeit import default_timer
 fd = __import__("feed")
 az = __import__("imgEmotion")
 
-print("Enabling ... Please wait")
+# def main():
+while 1:
+    print("Enabling ... Please wait")
 
-start = default_timer()
+    i = 1
 
-duration = default_timer() - start
-print(duration)
-fd.runFeed()
+    start = default_timer()
 
+    duration = default_timer() - start
+    print(duration)
 
-while True:
     if duration >= 40:
         az.getEmotion(fd.imgpath)
         start = default_timer()
+        print(duration)
+    fd.runFeed()
+# main()
