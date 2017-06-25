@@ -6,10 +6,11 @@ import cv2
 import http.client, urllib.request, urllib.parse, urllib.error, base64, sys, json
 
 
-def getEmotion(path):
+def getEmotion(counter):
     headers = {
     # Request headers. Replace the placeholder key below with your subscription key.
     # 'Content-Type': 'application/octet-stream', #TODO use this instead of the other
+    # 'Content-Type': 'application/octet-stream',
     'Content-Type': 'application/json',
     'Ocp-Apim-Subscription-Key': ' 6064bcb0558049e8aca4837481f11dff',
     }
@@ -18,8 +19,8 @@ def getEmotion(path):
     })
 
    # Replace the example URL below with the URL of the image you want to analyze.
-    body = "{ 'url': 'http://bradschmidt.net/wp-content/uploads/2015/04/grandpa.jpg (21kB)'}"
-    # body = open(path).read()
+    body = { 'url': 'https://github.com/ajmwagar/SquashR/blob/master/Lib/Screencaps/opencv' + str(counter) + '.jpg'}
+    # body = open(path,'rb').read()
     try:
     # NOTE: You must use the same region in your REST call as you used to obtain your subscription keys.
     #   For example, if you obtained your subscription keys from westcentralus, replace "westus" in the
@@ -43,44 +44,42 @@ faceCascade = cv2.CascadeClassifier('../data/haarcascades/haarcascade_frontalfac
 eye_cascade = cv2.CascadeClassifier('../data/haarcascades/haarcascade_eye.xml')
 a = 0
 a = int (input("which webcam:"))
-video_capture = cv2.videocapture(a)
+video_capture = cv2.VideoCapture(a)
 
 # Toggles Rectangle and Debug logs
-# debug = False
-debug = True
+debug = False
+# debug = True
 
 
 
-imgpath = "../Lib/Screencaps/test.jpg"
-getEmotion(imgpath)
 
-emotion =  "Angry"
-emojicode = None
+emotion =  "Happy"
+# emojicode = None
 #Replace with re variables
-if emotion == "Happy":
-    #emojicode == "u\u1F603" 
-    emojicode = u'\U0001f603' 
-    # emojicode = "😃"
-elif emotion == "Sad":
-    # emojicode = "😔"
-    #emojicode == "u\u1F61E",  
-    emojicode = u'\U0001f603' 
-elif emotion == "Confused":
-    # emojicode = "😲"
-    #emojicode == "u\u1F616"  
-    emojicode = u'\U0001f603' 
-elif emotion == "Calm":
-    # emojicode = "😌"
-    #emojicode == "u\u1F60C" 
-    emojicode = u'\U0001f603' 
-elif emotion == "Angry":
-    # emojicode = "😡"
-    #emojicode == "u\u1F621"
-    emojicode = u'\U0001f603' 
-elif emotion == "Suprised":
-    #emojicode == "u\u1F602"  
-    emojicode = u'\U0001f603' 
-    # emojicode == "😲
+# if emotion == "Happy":
+    # #emojicode == "u\u1F603" 
+    # emojicode = u'\U0001f603' 
+    # # emojicode = "😃"
+# elif emotion == "Sad":
+    # # emojicode = "😔"
+    # #emojicode == "u\u1F61E",  
+    # emojicode = u'\U0001f603' 
+# elif emotion == "Confused":
+    # # emojicode = "😲"
+    # #emojicode == "u\u1F616"  
+    # emojicode = u'\U0001f603' 
+# elif emotion == "Calm":
+    # # emojicode = "😌"
+    # #emojicode == "u\u1F60C" 
+    # emojicode = u'\U0001f603' 
+# elif emotion == "Angry":
+    # # emojicode = "😡"
+    # #emojicode == "u\u1F621"
+    # emojicode = u'\U0001f603' 
+# elif emotion == "Suprised":
+    # #emojicode == "u\u1F602"  
+    # emojicode = u'\U0001f603' 
+    # # emojicode == "😲
 
 def runFeed():         
     def UI():
@@ -88,19 +87,27 @@ def runFeed():
         #cv2.fillPoly(frame, [triangle],(0,0,0), lineType=8, shift=0)
         font = cv2.FONT_HERSHEY_COMPLEX
         # cv2.putText(frame, emojicode.encode('unicode-escape'),(x,y), font, 4,(255,255,255), lineType=8)
-        cv2.putText(frame, 'OpenCV Tuts!', (x, y), font, 6, (200, 255, 155), 13, cv2.LINE_AA)
+        cv2.putText(frame, emotion, (x, y), font, 3, (200, 255, 155), 11, cv2.LINE_AA)
     i = 0
+    foo = 0
+    counter = 0
     while True:
         # Capture frame-by-frame
         ret, frame = video_capture.read()
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         faces = faceCascade.detectMultiScale(gray, 1.3, 5)
         i += 1
+        foo += 1
         if i >= 10:
-            b += 1
-            cv2.imwrite('opencv' + str(b) + '.jpg', frame)
+            counter += 1
+            cv2.imwrite('../Lib/Screencaps/opencv' + str(counter) + '.jpg', frame)
             i = 0
             print("image captured!")
+        if foo >= 20:
+            # imgpath = 'C:/Users/avery/Documents/GitHub/SqaushR/Lib/Screencaps/opencv' + str(counter) + '.jpg'
+            # print(imgpath)
+            getEmotion(counter)
+            foo = 0
         for (x,y,w,h) in faces:
             UI()
             #cv2.putText(frame, u'\u1F609', (x,y), cv2.FONT_HERSHEY_PLAIN, 10, (0,0,0))
@@ -118,7 +125,6 @@ def runFeed():
                     cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
                 if debug:
                     print("Eye found")
-                    print(emojicode.encode('unicode-escape'))
 
 
         # Display the resulting frame
