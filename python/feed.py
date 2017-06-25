@@ -41,7 +41,10 @@ def getEmotion(path):
 # faceCascade = cv2.CascadeClassifier(cascPath)
 faceCascade = cv2.CascadeClassifier('../data/haarcascades/haarcascade_frontalface_default.xml')
 eye_cascade = cv2.CascadeClassifier('../data/haarcascades/haarcascade_eye.xml')
-video_capture = cv2.VideoCapture(0)
+a = 0
+a = int (input("which webcam:"))
+video_capture = cv2.videocapture(a)
+
 # Toggles Rectangle and Debug logs
 # debug = False
 debug = True
@@ -94,7 +97,8 @@ def runFeed():
         faces = faceCascade.detectMultiScale(gray, 1.3, 5)
         i += 1
         if i >= 10:
-            cv2.imwrite('opencv' + str(i) + '.jpg', frame)
+            b += 1
+            cv2.imwrite('opencv' + str(b) + '.jpg', frame)
             i = 0
             print("image captured!")
         for (x,y,w,h) in faces:
